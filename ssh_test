@@ -1,0 +1,13 @@
+#Retrieve and add SSH fingerprint non-interactively
+ssh-keyscan -H 172.16.50.20 >> /root/.ssh/known_hosts
+
+#Get the IP address of the machine
+ip_address=$(hostname -I | awk '{print $1}')
+
+#Create a file with the IP address
+echo "hostname = $(hostname)  :  ip = $ip_address" > "/home/$cur_user/$(hostname).txt"
+
+#Use sshpass to provide the password non-interactively and copy the file
+sshpass -p "asd123." scp "/home/$cur_user/$(hostname).txt" synnefo@172.16.50.20:/home/synnefo/
+
+echo -e  "$success Execution completed $nocolour ";
