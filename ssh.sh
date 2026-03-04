@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NP="172.16.88"
+touch $HOME/.ssh/known_hosts
 KH="$HOME/.ssh/known_hosts"
 uname="synnefo"
 echo "Scanning $NP.0/16 for SSH hosts..."
