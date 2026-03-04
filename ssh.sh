@@ -2,10 +2,10 @@
 
 NP="172.16.88"
 KH="$HOME/.ssh/known_hosts"
-
+uname="synnefo"
 echo "Scanning $NP.0/16 for SSH hosts..."
 
-for i in $(seq 1 254)
+for i in $(seq 1 120)
 do
     IP="$NP.$i"
 
@@ -14,11 +14,13 @@ do
             exit
         fi
 
-        KEY=$(ssh-keyscan -T 3 -H $IP 2>/dev/null)
+        KEY=$(ssh-keyscan -T 3 -H $IP)
 
         if [ -n "$KEY" ]; then
             echo "Adding $IP"
             echo "$KEY" >> "$KH"
+	    echo "Securely Copying SSH-Key"
+	    sshpass -p "asd123." ssh-copy-id $uname@$IP
         fi
     ) &
 
